@@ -1,0 +1,52 @@
+User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dropbox Chooser Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <script src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="65g5fzcpkznjm1m"></script>
+</head>
+<body>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title has-text-primary">Dropbox Pre-built components</h1>
+
+        <div class="tile is-ancestor">
+            <div class="tile is-parent">
+                <article class="tile is-child box">
+                    <h2 class="title"><a href="https://www.dropbox.com/developers/chooser">Chooser</a></h2>
+                    <p class="subtitle">The Chooser is the fastest way to get files from Dropbox into your web, Android, or iOS app. It's a small component that enables your app to get files from Dropbox without having to worry about the complexities of implementing a file browser, authentication, or managing uploads and storage.</p>
+                    <button id="dropbox-chooser" class="button is-primary">Select from Dropbox</button>
+                    <article class="message is-success" id="selected-link" style="display:none;">
+                        <div class="message-header">
+                            <p>Success: Selected Link</p>
+                        </div>
+                        <div class="message-body">
+                            <a href="" id="link">Your selected file will appear here</a>
+                        </div>
+                    </article>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.getElementById("dropbox-chooser").addEventListener("click", function(){
+    Dropbox.choose({
+        success: function(files) {
+            var linkElement = document.getElementById('link');
+            linkElement.href = files[0].link;
+            linkElement.textContent = files[0].name;
+            document.getElementById('selected-link').style.display = 'block';
+        },
+        linkType: "preview",
+        multiselect: false,
+    });
+});
+</script>
+
+</body>
+</html>
